@@ -1,31 +1,29 @@
-#include <iostream>
-#include <fstream>
-#include <sstream>
-#include <vector>
-#include <string>
+#include "lib/csv.hpp"
 
-std::vector<std::vector<std::string> > readCSV(const std::string& filename) {
-    std::vector<std::vector<std::string> > data;
+
+EventData loadEventDataFromCSV(const std::string& filename, bool ignoreFirstLine) {
+
     std::ifstream file(filename);
-    
+
     if (!file.is_open()) {
-        std::cerr << "Error opening file: " << filename << std::endl;
-        return data;
+        throw std::runtime_error("Error opening file: " + filename);
     }
-    
+
     std::string line;
-    while (std::getline(file, line)) {
-        std::vector<std::string> row;
-        std::stringstream ss(line);
-        std::string cell;
-        
-        while (std::getline(ss, cell, ',')) {
-            row.push_back(cell);
-        }
-        
-        data.push_back(row);
+    if (ignoreFirstLine && !std::getline(file, line)) {
+        throw std::runtime_error("File is empty: " + filename);
     }
     
-    file.close();
-    return data;
-}
+    std::vector<EventDataRow> rows;
+    
+    while (std::getline(file, line)) {  
+        EventDataRow row = EventDataRow::rowFromLine(line);        
+        rows.push_back(row);
+    } 
+
+    std::chrono::system_clock::time_point deliveryStart, deliveryEnd;
+    std::string product; 
+
+    
+    return EventData(deliveryStart, deliveryEnd, product, rows);
+};

@@ -26,12 +26,16 @@ src/main <path_to_csv>
 
 ## Installation
 
-To use EPEXOrderLib, clone this repository and include it in your C++ project:
-
+To use EPEXOrderLib, clone this repository and enter the clone directory.
+Then run:
 ```bash
-git clone https://github.com/yourusername/EPEXOrderLib.git
-cd EPEXOrderLib
+cmake . -B build
+cd build
+cmake --build .
+sudo cmake --install . --prefix <PREFIX>
 ```
+where <PREFIX> is the directory where you want to install EPEXOrderLib.
+If you want to install system-wide on Unix systems, use "/usr/local" as the prefix.
 
 ## Usage
 

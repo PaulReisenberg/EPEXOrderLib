@@ -1,0 +1,17 @@
+@PACKAGE_INIT@
+
+include(CMakeFindDependencyMacro)
+
+# Include the targets file
+include("${CMAKE_CURRENT_LIST_DIR}/epexLibTargets.cmake")
+
+# Set a variable for the include directory
+set(EpexLib_INCLUDE_DIRS "@PACKAGE_INCLUDE_INSTALL_DIR@")
+
+# Provide the include directories for the target
+set(epexLib_INCLUDE_DIRS "${EpexLib_INCLUDE_DIRS}")
+
+# Add the target to the IMPORTED target epexLib::epexLib
+set_target_properties(epexLib::epexLib PROPERTIES
+    INTERFACE_INCLUDE_DIRECTORIES "${EpexLib_INCLUDE_DIRS}"
+)

@@ -9,6 +9,21 @@ EPEXOrderLib is a C++ library designed to work with EPEX order event data. It pr
 - Efficient data structures for handling large volumes of order events
 - Support for various order types and execution restrictions
 
+## Build Commands
+To build EPEXOrderLib, run the following command:
+```bash
+cmake . -B build
+cd build
+make
+```
+The binaries will then be built into `build/src`.
+
+## Run Commands
+You can run the `main.cpp` executable with:
+```bash
+src/main <path_to_csv>
+```
+
 ## Installation
 
 To use EPEXOrderLib, clone this repository and include it in your C++ project:

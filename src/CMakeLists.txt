@@ -1,8 +1,9 @@
 # get all source files
 file(GLOB_RECURSE SRC_FILES 
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
+    "${EpexOrderLib_SOURCE_DIR}/include/epexLib/epexLib.hpp"
 )
-
 # remove MolSim.cpp from source files
 list(REMOVE_ITEM SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
 
@@ -13,12 +14,17 @@ add_library(
     ${SRC_FILES}
 )
 
-# include headers
-target_include_directories(
-    epexLib
-    PUBLIC 
-    ${CMAKE_CURRENT_SOURCE_DIR}
+target_include_directories(epexLib
+    PUBLIC
+        # Public headers location during build
+        $<BUILD_INTERFACE:${EpexOrderLib_SOURCE_DIR}/include>  
+        # Public headers location after install
+        $<INSTALL_INTERFACE:include>  
+        # Private headers location
+        ${CMAKE_CURRENT_SOURCE_DIR}  
 )
+
+target_compile_options(epexLib PRIVATE -Wall -Wextra)
 
 # define main target
 add_executable(main main.cpp)

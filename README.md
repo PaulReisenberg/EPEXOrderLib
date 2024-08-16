@@ -9,29 +9,49 @@ EPEXOrderLib is a C++ library designed to work with EPEX order event data. It pr
 - Efficient data structures for handling large volumes of order events
 - Support for various order types and execution restrictions
 
+## Build Commands
+To build EPEXOrderLib, run the following command:
+```bash
+cmake . -B build
+cd build
+make
+```
+The binaries will then be built into `build/src`.
+
+## Run Commands
+You can run the `main.cpp` executable with:
+```bash
+src/main <path_to_csv>
+```
+
 ## Installation
 
-To use EPEXOrderLib, clone this repository and include it in your C++ project:
-
+To use EPEXOrderLib, clone this repository and enter the clone directory.
+Then run:
 ```bash
-git clone https://github.com/yourusername/EPEXOrderLib.git
-cd EPEXOrderLib
+cmake . -B build
+cd build
+cmake --build .
+sudo cmake --install . --prefix <PREFIX>
 ```
+where <PREFIX> is the directory where you want to install EPEXOrderLib.
+If you want to install system-wide on Unix systems, use "/usr/local" as the prefix.
 
 ## Usage
 
 Here's a basic example of how to use EPEXOrderLib:
+(still in development)
 
 ```cpp
-#include "EPEXOrderLib.h"
+#include "epexlib/models/eventData.hpp"
+#include "epexlib/utils/utils.hpp"
 
-int main() {
-    EPEXOrderLib lib;
-    lib.loadOrdersFromCSV("path/to/your/data.csv");
-    auto orderBook = lib.reconstructOrderBookAt("2023-04-20T08:32:46.882Z");
-    orderBook.print();
-    return 0;
+int main(int argc, char* argv[])
+{
+    auto time = stringToTimePoint("2023-04-20T07:32:48");
+    EventData eventData(time, time, "test");
 }
+
 ```
 
 ## Data Format

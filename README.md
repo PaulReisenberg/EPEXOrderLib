@@ -40,17 +40,18 @@ If you want to install system-wide on Unix systems, use "/usr/local" as the pref
 ## Usage
 
 Here's a basic example of how to use EPEXOrderLib:
+(still in development)
 
 ```cpp
-#include "EPEXOrderLib.h"
+#include "epexlib/models/eventData.hpp"
+#include "epexlib/utils/utils.hpp"
 
-int main() {
-    EPEXOrderLib lib;
-    lib.loadOrdersFromCSV("path/to/your/data.csv");
-    auto orderBook = lib.reconstructOrderBookAt("2023-04-20T08:32:46.882Z");
-    orderBook.print();
-    return 0;
+int main(int argc, char* argv[])
+{
+    auto time = stringToTimePoint("2023-04-20T07:32:48");
+    EventData eventData(time, time, "test");
 }
+
 ```
 
 ## Data Format

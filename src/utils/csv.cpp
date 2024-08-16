@@ -1,8 +1,9 @@
-#include "lib/csv.hpp"
 
+#include "utils/csv.hpp"
+#include <fstream>
 
-EventData loadEventDataFromCSV(const std::string& filename, bool ignoreFirstLine) {
-
+EventData loadEventDataFromCSV(const std::string& filename, bool ignoreFirstLine)
+{
     std::ifstream file(filename);
 
     if (!file.is_open()) {
@@ -13,17 +14,16 @@ EventData loadEventDataFromCSV(const std::string& filename, bool ignoreFirstLine
     if (ignoreFirstLine && !std::getline(file, line)) {
         throw std::runtime_error("File is empty: " + filename);
     }
-    
+
     std::vector<EventDataRow> rows;
-    
-    while (std::getline(file, line)) {  
-        EventDataRow row = EventDataRow::rowFromLine(line);        
+
+    while (std::getline(file, line)) {
+        EventDataRow row = EventDataRow::rowFromLine(line);
         rows.push_back(row);
-    } 
+    }
 
     std::chrono::system_clock::time_point deliveryStart, deliveryEnd;
-    std::string product; 
+    std::string product;
 
-    
     return EventData(deliveryStart, deliveryEnd, product, rows);
 };

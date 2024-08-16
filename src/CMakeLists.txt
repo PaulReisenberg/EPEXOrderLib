@@ -1,14 +1,15 @@
+
 # get all source files
 file(GLOB_RECURSE SRC_FILES 
     "${CMAKE_CURRENT_SOURCE_DIR}/*.cpp"
 )
 
-# get all source files
+# get all header files
 file(GLOB_RECURSE PUBLIC_HEADERS 
     "${CMAKE_CURRENT_SOURCE_DIR}/*.hpp"
 )
 
-# remove MolSim.cpp from source files
+# remove main.cpp from source files
 list(REMOVE_ITEM SRC_FILES "${CMAKE_CURRENT_SOURCE_DIR}/main.cpp")
 
 # create library
@@ -18,26 +19,19 @@ add_library(
     ${SRC_FILES}
 )
 
+# Specify the include directories
 target_include_directories(epexLib
     PUBLIC
-        # Public headers location during build
-        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  
-        # Public headers location after install
-        $<INSTALL_INTERFACE:include/epexlib>  
+        $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  # For building the library
+        $<INSTALL_INTERFACE:include/epexlib>            # For users after installation
 )
 
+# Enable all warnings
 target_compile_options(epexLib PRIVATE -Wall -Wextra)
 
-# define main target
+# Define the main executable
 add_executable(main main.cpp)
 target_link_libraries(main epexLib)
-# depending on the compiler different flags are used
-target_compile_options(main
-        PRIVATE
-        $<$<CXX_COMPILER_ID:GNU>:-Wall>
-            # disable some spam warnings for icpc...
-            $<$<CXX_COMPILER_ID:Intel>:-w3 -wd383,981,1418,1572,2259>
-)
 
 # Installation rules
 
@@ -49,8 +43,10 @@ install(TARGETS epexLib
         RUNTIME DESTINATION bin)
 
 # Install the public headers to the include/epexlib directory
-install(FILES ${PUBLIC_HEADERS}
-        DESTINATION include/epexlib)
+install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
+        DESTINATION include/epexlib
+        FILES_MATCHING PATTERN "*.hpp"
+)
 
 # Install the export file (for find_package)
 install(EXPORT epexLibTargets

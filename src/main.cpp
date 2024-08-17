@@ -1,7 +1,7 @@
-#include "models/eventData.hpp"
-#include "orderbook/orderbook.hpp"
-#include "utils/csv.hpp"
-#include "utils/utils.hpp"
+#include "epexlib/models/eventData.hpp"
+#include "epexlib/orderbook/orderbook.hpp"
+#include "epexlib/utils/csv.hpp"
+#include "epexlib/utils/utils.hpp"
 #include <chrono>
 #include <iostream>
 #include <string>
@@ -15,14 +15,15 @@ int main(int argc, char* argv[])
         filename = argv[1];
     }
 
-    EventData eventData = loadEventDataFromCSV(filename, true);
+    epexlib::EventData eventData = epexlib::loadEventDataFromCSV(filename, true);
 
     std::cout << eventData.toString();
 
-    std::chrono::system_clock::time_point time_stamp = stringToTimePoint("2023-04-20T07:32:48");
+    std::chrono::system_clock::time_point time_stamp =
+        epexlib::stringToTimePoint("2023-04-20T07:32:48");
     std::cout << "\n\n";
 
-    EventData lob = getLOB(eventData, time_stamp);
+    epexlib::EventData lob = getLOB(eventData, time_stamp);
 
     std::cout << lob.toString();
 

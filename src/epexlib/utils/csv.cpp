@@ -1,6 +1,8 @@
 
-#include "utils/csv.hpp"
+#include "epexlib/utils/csv.hpp"
 #include <fstream>
+
+namespace epexlib {
 
 EventData loadEventDataFromCSV(const std::string& filename, bool ignoreFirstLine)
 {
@@ -27,3 +29,5 @@ EventData loadEventDataFromCSV(const std::string& filename, bool ignoreFirstLine
 
     return EventData(deliveryStart, deliveryEnd, product, rows);
 };
+
+}

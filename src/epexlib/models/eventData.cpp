@@ -1,5 +1,5 @@
 
-#include "eventData.hpp"
+#include "epexlib/models/eventData.hpp"
 #include <algorithm>
 #include <chrono>
 #include <functional>
@@ -10,6 +10,8 @@
 #include <vector>
 
 using std::ostringstream;
+
+namespace epexlib {
 
 EventData::EventData(
     std::chrono::system_clock::time_point start,
@@ -170,4 +172,6 @@ std::string EventData::actionCodeToString(ActionCode ac)
     default:
         return "UNKNOWN";
     }
+}
+
 }

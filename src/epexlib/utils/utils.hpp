@@ -1,10 +1,12 @@
 
+#include <chrono>
 #include <iomanip>
 #include <iostream>
 #include <sstream>
-#include <chrono>
 #include <stdexcept>
 #include <string>
+
+namespace epexlib {
 
 inline std::chrono::system_clock::time_point stringToTimePoint(const std::string& s)
 {
@@ -26,3 +28,4 @@ inline std::chrono::system_clock::time_point stringToTimePoint(const std::string
     return tp;
 }
 
+}

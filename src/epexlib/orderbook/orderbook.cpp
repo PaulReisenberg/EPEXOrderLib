@@ -1,6 +1,8 @@
 
-#include "orderbook/orderbook.hpp"
+#include "epexlib/orderbook/orderbook.hpp"
 #include <unordered_map>
+
+namespace epexlib {
 
 EventData getLOB(EventData eventData, std::chrono::system_clock::time_point time_stamp)
 {
@@ -35,3 +37,4 @@ EventData getLOB(EventData eventData, std::chrono::system_clock::time_point time
     return eventData;
 }
 
+}

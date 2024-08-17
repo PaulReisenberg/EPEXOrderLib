@@ -44,7 +44,7 @@ install(TARGETS epexLib
 
 # Install the public headers to the include/epexlib directory
 install(DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/
-        DESTINATION include/epexlib
+        DESTINATION include
         FILES_MATCHING PATTERN "*.hpp"
 )
 

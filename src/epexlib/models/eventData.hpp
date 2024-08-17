@@ -1,9 +1,11 @@
 
 #pragma once
 
-#include "eventDataRow.hpp"
+#include "epexlib/models/eventDataRow.hpp"
 #include <functional>
 #include <vector>
+
+namespace epexlib {
 
 class EventData {
 public:
@@ -25,7 +27,7 @@ public:
         std::chrono::system_clock::time_point end,
         std::string prod);
 
-    void addRow(EventDataRow row); 
+    void addRow(EventDataRow row);
 
     EventData filter(std::function<bool(const EventDataRow&)> predicate);
 
@@ -42,3 +44,5 @@ private:
 
     static std::string actionCodeToString(ActionCode ac);
 };
+
+}

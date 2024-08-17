@@ -44,13 +44,19 @@ Here's a basic example of how to use EPEXOrderLib:
 
 ```cpp
 #include "epexlib/models/eventData.hpp"
+#include "epexlib/orderbook/orderbook.hpp"
+#include "epexlib/utils/csv.hpp"
 #include "epexlib/utils/utils.hpp"
+#include <chrono>
 
 int main(int argc, char* argv[])
 {
-    auto time = stringToTimePoint("2023-04-20T07:32:48");
-    EventData eventData(time, time, "test");
-}
+    // Load event data
+    epexlib::EventData eventData = epexlib::loadEventDataFromCSV("test.csv", true);
+    auto time_stamp = epexlib::stringToTimePoint("2023-04-20T07:32:48");
+    // Reconstruct the Limit Order Book
+    epexlib::EventData lob = getLOB(eventData, time_stamp);
+};
 
 ```
 

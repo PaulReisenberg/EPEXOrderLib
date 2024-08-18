@@ -3,6 +3,8 @@
 #include <chrono>
 #include <string>
 
+namespace epexlib {
+
 enum class Side { BUY, SELL };
 enum class ExecutionRestriction { NON, AON, FOK, IOC };
 enum class ActionCode { D, A, X, P, M, I, C, H };
@@ -50,3 +52,5 @@ private:
 
     static ActionCode stringToActionCode(const std::string& s);
 };
+
+}

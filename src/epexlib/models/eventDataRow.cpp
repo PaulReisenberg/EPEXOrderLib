@@ -1,5 +1,5 @@
 
-#include "models/eventDataRow.hpp"
+#include "epexlib/models/eventDataRow.hpp"
 #include <chrono>
 #include <iomanip>
 #include <iostream>
@@ -7,6 +7,8 @@
 #include <stdexcept>
 #include <string>
 #include <vector>
+
+namespace epexlib {
 
 EventDataRow::EventDataRow(
     const std::string& sOrderId,
@@ -133,4 +135,6 @@ ActionCode EventDataRow::stringToActionCode(const std::string& s)
     if (s == "H")
         return ActionCode::H;
     throw std::invalid_argument("Invalid ActionCode string: " + s);
+}
+
 }

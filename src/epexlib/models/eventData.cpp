@@ -1,4 +1,3 @@
-
 #include "epexlib/models/eventData.hpp"
 #include <algorithm>
 #include <chrono>
@@ -23,6 +22,10 @@ EventData::EventData(
     , product(std::move(prod))
     , rows(std::move(rows))
 {
+    std::sort(this->rows.begin(), this->rows.end(),
+        [](const EventDataRow& a, const EventDataRow& b) {
+            return a.transactionTime < b.transactionTime;
+    });
 }
 
 // Constructor without data parameter

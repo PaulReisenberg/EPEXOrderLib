@@ -24,7 +24,9 @@ EventData loadEventDataFromCSV(const std::string& filename, bool ignoreFirstLine
         rows.push_back(row);
     }
 
-    std::chrono::system_clock::time_point deliveryStart, deliveryEnd;
+    std::chrono::system_clock::time_point deliveryStart;
+    std::chrono::system_clock::time_point deliveryEnd;
+
     std::string product;
 
     return EventData(deliveryStart, deliveryEnd, product, rows);

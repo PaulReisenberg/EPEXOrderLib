@@ -3,6 +3,8 @@
 
 namespace epexlib {
 
-EventData getLOB(EventData eventData, std::chrono::system_clock::time_point time_stamp);
+EventData getLobAt(EventData eventData, std::chrono::system_clock::time_point time_stamp);
+
+std::vector<EventDataRow> getLob(const std::vector<EventDataRow>& rows);
 
 }

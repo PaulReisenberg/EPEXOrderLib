@@ -3,10 +3,6 @@
 #include "epexlib/orderbook/orderbook.hpp"
 #include <algorithm>
 #include <chrono>
-#include <functional>
-#include <iomanip>
-#include <iostream>
-#include <sstream>
 #include <string>
 #include <vector>
 

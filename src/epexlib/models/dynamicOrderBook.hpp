@@ -1,8 +1,6 @@
 #pragma once
 
 #include "epexlib/models/eventData.hpp"
-#include <functional>
-#include <vector>
 
 namespace epexlib {
 

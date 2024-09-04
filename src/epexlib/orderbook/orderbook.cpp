@@ -1,5 +1,6 @@
 
 #include "epexlib/orderbook/orderbook.hpp"
+#include <algorithm>
 #include <unordered_map>
 
 namespace epexlib {

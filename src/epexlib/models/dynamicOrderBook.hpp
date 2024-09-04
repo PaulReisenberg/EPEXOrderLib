@@ -27,5 +27,7 @@ public:
 
     double getLastVwap();
 
+    bool isActive();
+
     };
 }

@@ -70,7 +70,7 @@ void DynamicOrderBook::createNextLobAt(std::chrono::system_clock::time_point tim
         remainingEventData.rows.begin(), remainingEventData.rows.begin() + rowsToProcess);
 
     // update currentTime
-    currentTime = nextRows.back().transactionTime;
+    currentTime = time_stamp;
 
     // merge the rows with the current LOB
     currentLob.rows.insert(currentLob.rows.end(), nextRows.begin(), nextRows.end());
@@ -87,6 +87,12 @@ EventData DynamicOrderBook::getCurrentLob()
 double DynamicOrderBook::getLastVwap()
 {
     return lastVwap;
+}
+
+bool DynamicOrderBook::isActive(){
+    // NOTE: comparing the currentTime with the deliveryStart is not completely
+    // correct, as there is a product-specific limit before that
+    return !remainingEventData.rows.empty() && currentTime < deliveryStart;
 }
 
 }

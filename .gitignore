@@ -4,6 +4,9 @@ local
 # ignore all build folders
 /*build*/
 
+# ignore .csv files
+*.csv
+
 # ignore clangd cache
 .cache/
 local

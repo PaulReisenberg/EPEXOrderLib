@@ -36,7 +36,7 @@ int main(int argc, char* argv[])
 
 
 
-    std::cout << currentLob.toString();
+    std::cout << currentLob.toString(currentLob.rows.size());
 
 /*
     std::chrono::system_clock::time_point time_stamp =

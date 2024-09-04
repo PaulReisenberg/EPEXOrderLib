@@ -22,10 +22,10 @@ EventData::EventData(
     , product(std::move(prod))
     , rows(std::move(rows))
 {
-    std::sort(this->rows.begin(), this->rows.end(),
-        [](const EventDataRow& a, const EventDataRow& b) {
+    std::sort(
+        this->rows.begin(), this->rows.end(), [](const EventDataRow& a, const EventDataRow& b) {
             return a.transactionTime < b.transactionTime;
-    });
+        });
 }
 
 // Constructor without data parameter
@@ -56,7 +56,7 @@ void EventData::forEach(std::function<void(const EventDataRow&)> func)
     std::for_each(rows.begin(), rows.end(), func);
 }
 
-std::string EventData::toString() const
+std::string EventData::toString(size_t maxRows) const
 {
     ostringstream oss;
     oss << "EventData:\n"
@@ -95,8 +95,21 @@ std::string EventData::toString() const
 
     // Print rows
 
-    int i = 0;
+    size_t i = 0;
     for (const auto& row : rows) {
+        if (i >= maxRows) {
+            oss << std::left << std::setw(idWidth) << "..." << std::setw(idWidth) << "..."
+                << std::setw(idWidth) << "..." << std::setw(sideWidth) << "..."
+                << std::setw(timeWidth) << "..." << std::setw(areaWidth) << "..."
+                << std::setw(restrictionWidth) << "..." << std::setw(blockWidth) << "..."
+                << std::setw(revWidth) << "..." << std::setw(actionWidth) << "..."
+                << std::setw(timeWidth) << "..." << std::setw(priceWidth) << std::fixed << "..."
+                << std::setw(volumeWidth) << std::fixed << "..." << "\n";
+
+            oss << "Stopped printing after " << maxRows << " rows.\n";
+
+            break;
+        }
         oss << std::left << std::setw(idWidth) << row.orderId << std::setw(idWidth) << row.initialId
             << std::setw(idWidth) << row.parentId << std::setw(sideWidth) << sideToString(row.side)
             << std::setw(timeWidth) << timePointToString(row.creationTime) << std::setw(areaWidth)
@@ -106,11 +119,9 @@ std::string EventData::toString() const
             << std::setw(actionWidth) << actionCodeToString(row.actionCode) << std::setw(timeWidth)
             << timePointToString(row.transactionTime) << std::setw(priceWidth) << std::fixed
             << std::setprecision(2) << row.price << std::setw(volumeWidth) << std::fixed
-            << std::setprecision(2) << row.volume << "\n";
+            << std::setprecision(2) << row.volume << "\n"; 
 
-        if (++i >= 50) {
-            break;
-        }
+        ++i;
     }
 
     return oss.str();

@@ -33,7 +33,7 @@ public:
 
     void forEach(std::function<void(const EventDataRow&)> func);
 
-    std::string toString() const;
+    std::string toString(size_t maxRows = 50) const;
 
 private:
     static std::string timePointToString(const std::chrono::system_clock::time_point& tp);

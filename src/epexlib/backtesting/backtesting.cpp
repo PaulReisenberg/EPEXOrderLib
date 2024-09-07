@@ -1,55 +1,36 @@
-#include "epexlib/models/eventData.hpp"
-#include "epexlib/models/dynamicOrderBook.hpp"
-#include <algorithm>
-#include <chrono>
-#include <functional>
-#include <iomanip>
-#include <iostream>
+#include "epexlib/backtesting/backtesting.hpp"
 #include <sstream>
-#include <string>
-#include <vector>
-
 
 using std::ostringstream;
 
-
 namespace epexlib {
 
+void backtestDay(
+    EventData eventData, std::chrono::system_clock::time_point starttime, Strategy& strategy)
+{
+    // Strategy strategy
 
+    DynamicOrderBook dynamicOrderBook = epexlib::DynamicOrderBook(eventData);
 
-    void backtestDay(EventData eventData) {
-        // Strategy strategy
+    double power_balance = 0;
+    double cash_balance = 0;
 
+    auto time = starttime;
 
-        DynamicOrderBook dynamicOrderBook = epexlib::DynamicOrderBook(eventData);
-        
-        /*
+    while (dynamicOrderBook.isActive()) {
+        time = strategy.getNextTradingTime(time);
 
-        power_balance = 0
-        cash_balance = 0
+        dynamicOrderBook.createNextLobAt(time);
 
-        while(dynamicOrderBook.isActive()) {
+        auto orders = strategy.getOrders(dynamicOrderBook);
 
-            time = strategy.getNextTradingTime()
+        // TODO
+        /* matchedOrders = matchOrders(currentLob, orders); */
 
-            dynamicOrderBook.createNextLobAt(time)
-            
-            orders = strategy.getOrders(dynamicOrderBook.currentTime);
+        /* strategy.notify(matchedOrders, dynamicOrderBook); */
 
-            matchedOrders = matchOrders(currentLob, orders);
-
-            strategy.notify(matchedOrders, dynamicOrderBook.currentTime);
-
-            updateBalance(matchedOrders);
-        }
-        */
-
-
-
+        /* updateBalance(matchedOrders); */
     }
-
-
-
-
 }
 
+}

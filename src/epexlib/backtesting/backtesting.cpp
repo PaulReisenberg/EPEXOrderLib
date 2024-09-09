@@ -1,4 +1,5 @@
 #include "epexlib/backtesting/backtesting.hpp"
+#include "epexlib/marketsim/marketsim.hpp"
 #include <sstream>
 
 using std::ostringstream;
@@ -24,12 +25,11 @@ void backtestDay(
 
         auto orders = strategy.getOrders(dynamicOrderBook);
 
-        // TODO
-        /* matchedOrders = matchOrders(currentLob, orders); */
+        auto matchedOrders = matchOrders(dynamicOrderBook, orders);
 
-        /* strategy.notify(matchedOrders, dynamicOrderBook); */
+        strategy.notifyResult(matchedOrders, dynamicOrderBook);
 
-        /* updateBalance(matchedOrders); */
+        updateBalance(power_balance, cash_balance, matchedOrders);
     }
 }
 

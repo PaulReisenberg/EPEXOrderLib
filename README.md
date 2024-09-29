@@ -60,6 +60,22 @@ int main(int argc, char* argv[])
 
 ```
 
+### Run tests
+
+To build the tests run:
+
+```sh
+cd build
+make tests
+```
+
+To run the tests, run the following command:
+
+```sh
+tests/tests
+```
+
+
 ## Data Format
 
 EPEXOrderLib expects CSV files with the following structure:

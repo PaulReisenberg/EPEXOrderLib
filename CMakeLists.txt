@@ -19,5 +19,11 @@ endif(NOT CMAKE_BUILD_TYPE)
 # export compile_commands.json for clangd
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
+# add modules path
+list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake/modules)
+
+include(gtest)
+
 # add subdirectory
 add_subdirectory(src)
+add_subdirectory(tests)
